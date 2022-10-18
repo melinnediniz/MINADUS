@@ -22,10 +22,3 @@ app.use(Routes);
 app.listen(port, () => {
   console.log(`Server is running in http://localhost:${port}`);
 })
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);

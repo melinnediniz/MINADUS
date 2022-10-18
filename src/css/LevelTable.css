@@ -1,15 +1,15 @@
 div.table{
-    position: fixed;
+    position: relative;
     width: 304px;
-    height: 850px;
+    height: 818px;
     left: 1400px;
     top: 0px;
     
     background: #E1E1E1;
     box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);}
 
-text.row{
-position: fixed;
+h1.row{
+position: relative;
 font-size: 30px;
 left: 1410px;
 top: 0.1px;
