@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/LevelTable.css" type="text/css">
+
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function muda_modo(){
+            const btn = document.getElementById('modo');
+
+            btn.addEventListener('click', function handleClick() {
+            if (btn.innerHTML == "JOGO NORMAL"){
+                btn.innerHTML = 'JOGO RANQUEADO';}
+            else if(btn.innerHTML == "JOGO RANQUEADO"){
+                btn.innerHTML = 'JOGO NORMAL';
+            }
+        }
+        );
+        }
+
+        function destaca1(){
+        const btn = document.getElementById('facil');
+        const btn2 = document.getElementById('medio');
+        const btn3 = document.getElementById('dificil');
+
+        btn.addEventListener('click', function handleClick() {
+        btn3.style.backgroundColor = '#e1e1e1';
+        btn2.style.backgroundColor = '#e1e1e1';
+        btn.style.backgroundColor = 'gray'});
+        }
+
+        function destaca2(){
+        const btn = document.getElementById('medio');
+        const btn2 = document.getElementById('facil');
+        const btn3 = document.getElementById('dificil');
+
+        btn.addEventListener('click', function handleClick() {
+        btn3.style.backgroundColor = '#e1e1e1';
+        btn2.style.backgroundColor = '#e1e1e1';
+        btn.style.backgroundColor = 'gray'});
+        }
+
+        function destaca3(){
+        const btn = document.getElementById('dificil');
+        const btn2 = document.getElementById('medio');
+        const btn3 = document.getElementById('facil');
+
+        btn.addEventListener('click', function handleClick() {
+        btn3.style.backgroundColor = '#e1e1e1';
+        btn2.style.backgroundColor = '#e1e1e1';
+        btn.style.backgroundColor = 'gray'});
+        }
+    </script>
+    <div class="table">
+        <text class="row">→</text>
+        <h1 class="dificuldade">DIFICULDADE</h1>
+        <button class="fácil" id="facil" onclick="destaca1()">FÁCIL</button>
+        <button class="médio" id="medio" onclick="destaca2()">MÉDIO</button>
+        <button class="difícil" id="dificil" onclick="destaca3()">DIFÍCIL</button>
+        <h1 class="modo">MODO DE JOGO</h1>
+        <button class="modo" id="modo" onclick="muda_modo()">JOGO NORMAL</button>
+    </div>
+</body>
+</html>

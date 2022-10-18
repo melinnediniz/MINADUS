@@ -1,0 +1,115 @@
+div.table{
+    position: fixed;
+    width: 304px;
+    height: 850px;
+    left: 1400px;
+    top: 0px;
+    
+    background: #E1E1E1;
+    box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);}
+
+text.row{
+position: fixed;
+font-size: 30px;
+left: 1410px;
+top: 0.1px;
+}
+
+h1.dificuldade{
+position: fixed;
+width: 302px;
+height: 59.21px;
+left: 1480px;
+top: 53.29px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.035em;
+
+color: #000000;
+}
+
+
+button.fácil{position: fixed;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    width: 314px;
+    height: 56.25px;
+    left: 1400px;
+    top: 117.00px;
+    background: #E1E1E1;
+    box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
+    border-color:#E1E1E1}
+
+button.médio{position: fixed;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    font-family: 'Lato';
+    font-style: normal;
+    width: 314px;
+    height: 56.25px;
+    left: 1400px;
+    top: 172.10px;
+    background: #E1E1E1;
+    box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
+    border-color:#E1E1E1}
+
+button.difícil{position: fixed;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 30px;
+    font-family: 'Lato';
+    font-style: normal;
+    width: 314px;
+    height: 56.25px;
+    left: 1400px;
+    top: 226.97px;
+    background: #E1E1E1;
+    box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
+    border-color:#E1E1E1}
+
+h1.modo{
+position: fixed;
+width: 302px;
+height: 59.21px;
+left: 1470px;
+top: 311.84px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.035em;
+
+color: #000000;
+}
+
+button.modo{
+font-weight: 400;
+font-size: 25px;
+line-height: 30px;
+font-family: 'Lato';
+font-style: normal;
+position: fixed;
+width: 227px;
+height: 63px;
+left: 1440px;
+top: 390.98px;
+box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
+background: #1DA83C;
+border-color:#E1E1E1;
+}
