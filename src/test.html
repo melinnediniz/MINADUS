@@ -13,48 +13,46 @@
         function muda_modo(){
             const btn = document.getElementById('modo');
 
-            btn.addEventListener('click', function handleClick() {
+            
             if (btn.innerHTML == "JOGO NORMAL"){
                 btn.innerHTML = 'JOGO RANQUEADO';}
             else if(btn.innerHTML == "JOGO RANQUEADO"){
                 btn.innerHTML = 'JOGO NORMAL';
             }
-        }
-        );
-        }
+        };
+        
 
         function destaca1(){
         const btn = document.getElementById('facil');
         const btn2 = document.getElementById('medio');
         const btn3 = document.getElementById('dificil');
 
-        btn.addEventListener('click', function handleClick() {
+        
         btn3.style.backgroundColor = '#e1e1e1';
         btn2.style.backgroundColor = '#e1e1e1';
-        btn.style.backgroundColor = 'gray'});
-        }
+        btn.style.backgroundColor = 'gray'};
+        
 
         function destaca2(){
         const btn = document.getElementById('medio');
         const btn2 = document.getElementById('facil');
         const btn3 = document.getElementById('dificil');
 
-        btn.addEventListener('click', function handleClick() {
+        
         btn3.style.backgroundColor = '#e1e1e1';
         btn2.style.backgroundColor = '#e1e1e1';
-        btn.style.backgroundColor = 'gray'});
-        }
+        btn.style.backgroundColor = 'gray'};
 
         function destaca3(){
         const btn = document.getElementById('dificil');
         const btn2 = document.getElementById('medio');
         const btn3 = document.getElementById('facil');
 
-        btn.addEventListener('click', function handleClick() {
+       
         btn3.style.backgroundColor = '#e1e1e1';
         btn2.style.backgroundColor = '#e1e1e1';
-        btn.style.backgroundColor = 'gray'});
-        }
+        btn.style.backgroundColor = 'gray'};
+        
     </script>
     <div class="table">
         <text class="row">→</text>
