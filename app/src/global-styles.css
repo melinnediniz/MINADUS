@@ -1,18 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
-*{
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
     box-sizing: border-box;
 }
 
-html, body, #root{
-    width: 100vw;
+html,
+body,
+#root {
+    width: 100%;
     min-height: 100vh;
 }
 
-button, input[type="button"]{
+button,
+input[type="button"] {
     background-color: transparent;
     border: 0;
     cursor: pointer;
@@ -21,6 +24,7 @@ button, input[type="button"]{
 * ::-webkit-scrollbar {
     background-color: #f0f0f0;
     width: 8px;
+    height: 8px;
 }
 
 * ::-webkit-scrollbar-thumb {

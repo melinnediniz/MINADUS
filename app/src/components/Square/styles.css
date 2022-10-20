@@ -1,0 +1,124 @@
+.square {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 4px;
+    font-size: 12pt;
+    justify-content: center;
+    background-color: #d0cfcf;
+    box-shadow: 1px 1px 4px 0px #00000011;
+}
+
+.setinha {
+    cursor: pointer;
+}
+
+.square .flag {
+    color: #cc0000;
+}
+
+.square.hide {
+    background: #828282;
+}
+
+.board.bigger .square {
+    font-size: 20pt;
+    width: 56px;
+    height: 56px;
+}
+
+.board.big .square {
+    font-size: 15pt;
+    width: 42px;
+    height: 42px;
+}
+
+.board.medium .square {
+    width: 32px;
+    height: 32px;
+}
+
+.board.small .square {
+    width: 24px;
+    height: 24px;
+}
+
+.board.fall .mines:nth-child(even) .bomb {
+    animation: shake-even 0.5s both;
+}
+
+.board.fall .mines:nth-child(odd) .bomb {
+    animation: shake-odd 0.5s both;
+}
+
+.board.fall .mines:nth-child(3n) .bomb {
+    animation: shake 0.5s both;
+}
+
+.board.fall .bomb::after {
+    content: " ";
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    top: -50%;
+    left: -50%;
+    background-color: #ffffff55;
+}
+
+@keyframes shake-odd {
+    0% {
+        transform: translateX(2px);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    50% {
+        transform: translateX(2px);
+    }
+    75% {
+        transform: translateX(-2px);
+    }
+    100% {
+        background-color: #ff0000dd;
+        transform: translateX(0px);
+    }
+}
+
+@keyframes shake-even {
+    0% {
+        transform: translateX(2px);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    50% {
+        transform: translateX(2px);
+    }
+    75% {
+        transform: translateX(-2px);
+    }
+    100% {
+        background-color: #8b3ab1;
+        transform: translateX(0px);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(2px);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    50% {
+        transform: translateX(2px);
+    }
+    75% {
+        transform: translateX(-2px);
+    }
+    100% {
+        background-color: #66b03b;
+        transform: translateX(0px);
+    }
+}
