@@ -1,9 +1,10 @@
+import { RouterProvider } from "react-router-dom"
+import { router } from "./routes"
+
+import './global-styles.css'
+
 function App() {
-	return (
-		<div className="App">
-			Ola Minadus
-		</div>
-	)
+	return <RouterProvider router={router} />
 }
 
 export default App

@@ -1,0 +1,28 @@
+.header{
+    width: 60%;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.header .menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #00000011;
+    padding: 16px;
+}
+
+.header .menu .title{
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+.header .gamemode{
+    text-transform: uppercase;
+    font-size: 18pt;
+    display: flex;
+    justify-content: center;
+    color: #00000035;
+}
