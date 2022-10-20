@@ -1,8 +1,8 @@
 div.table{
     position: relative;
-    width: 304px;
-    height: 818px;
-    left: 1400px;
+    width: 302px;
+    height: 830px;
+    left: 1380px;
     top: 0px;
     
     background: #E1E1E1;
@@ -19,7 +19,7 @@ h1.dificuldade{
 position: fixed;
 width: 302px;
 height: 59.21px;
-left: 1480px;
+left: 1465px;
 top: 53.29px;
 
 font-family: 'Lato';
@@ -42,11 +42,11 @@ button.fácil{position: fixed;
     font-weight: 400;
     font-size: 25px;
     line-height: 30px;
-    width: 314px;
+    width: 304px;
     height: 56.25px;
-    left: 1400px;
+    left: 1388px;
     top: 117.00px;
-    background: #E1E1E1;
+    background: #259dec;
     box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
     border-color:#E1E1E1}
 
@@ -56,11 +56,11 @@ button.médio{position: fixed;
     line-height: 30px;
     font-family: 'Lato';
     font-style: normal;
-    width: 314px;
+    width: 304px;
     height: 56.25px;
-    left: 1400px;
+    left: 1388px;
     top: 172.10px;
-    background: #E1E1E1;
+    background: #ff8f2e;
     box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
     border-color:#E1E1E1}
 
@@ -70,11 +70,11 @@ button.difícil{position: fixed;
     line-height: 30px;
     font-family: 'Lato';
     font-style: normal;
-    width: 314px;
+    width: 304px;
     height: 56.25px;
-    left: 1400px;
+    left: 1388px;
     top: 226.97px;
-    background: #E1E1E1;
+    background: #d00101;
     box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
     border-color:#E1E1E1}
 
@@ -82,7 +82,7 @@ h1.modo{
 position: fixed;
 width: 302px;
 height: 59.21px;
-left: 1470px;
+left: 1465px;
 top: 311.84px;
 
 font-family: 'Lato';
@@ -107,7 +107,7 @@ font-style: normal;
 position: fixed;
 width: 227px;
 height: 63px;
-left: 1440px;
+left: 1435px;
 top: 390.98px;
 box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
 background: #1DA83C;

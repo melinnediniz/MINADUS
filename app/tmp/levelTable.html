@@ -28,8 +28,8 @@
         const btn3 = document.getElementById('dificil');
 
         
-        btn3.style.backgroundColor = '#e1e1e1';
-        btn2.style.backgroundColor = '#e1e1e1';
+        btn3.style.backgroundColor = '#d00101';
+        btn2.style.backgroundColor = '#ff8f2e';
         btn.style.backgroundColor = 'gray'};
         
 
@@ -39,8 +39,8 @@
         const btn3 = document.getElementById('dificil');
 
         
-        btn3.style.backgroundColor = '#e1e1e1';
-        btn2.style.backgroundColor = '#e1e1e1';
+        btn3.style.backgroundColor = '#d00101';
+        btn2.style.backgroundColor = '#259dec';
         btn.style.backgroundColor = 'gray'};
 
         function destaca3(){
@@ -49,8 +49,8 @@
         const btn3 = document.getElementById('facil');
 
        
-        btn3.style.backgroundColor = '#e1e1e1';
-        btn2.style.backgroundColor = '#e1e1e1';
+        btn3.style.backgroundColor = '#259dec';
+        btn2.style.backgroundColor = '#ff8f2e';
         btn.style.backgroundColor = 'gray'};
 
         let isHid = false;
@@ -67,24 +67,26 @@
         isHid = !isHid;
         
         if (isHid == true)
-          { btn.style.left = 1600 + "px";
-           btn2.style.left = 1704 + "px";
-           btn3.style.left = 1704 + "px";
-           btn4.style.left = 1704 + "px";
-           btn5.style.left = 1774 + "px";
-           btn6.style.left = 1744 + "px";
-           btn7.style.left = 1784 + "px";
-           btn8.style.left = 1610 + "px";
+          { btn.style.width = 100 + "px";
+            btn.style.left = 1604 + "px"
+           btn2.style.visibility = 'hidden';
+           btn3.style.visibility = 'hidden';
+           btn4.style.visibility = 'hidden';
+           btn5.style.visibility = 'hidden';
+           btn6.style.visibility = 'hidden';
+           btn7.style.visibility = 'hidden';
+           btn8.style.visibility = 'visible';
         }
         else
-          {btn.style.left = 1400 + "px";
-           btn2.style.left = 1400 + "px";
-           btn3.style.left = 1400 + "px";
-           btn4.style.left = 1400 + "px";
-           btn5.style.left = 1470 + "px";
-           btn6.style.left = 1440 + "px";
-           btn7.style.left = 1480 + "px";
-           btn8.style.left = 1410 + "px";
+          {btn.style.width = 302 + "px";
+          btn.style.left = 1380 + "px";
+          btn2.style.visibility = 'visible';
+           btn3.style.visibility = 'visible';
+           btn4.style.visibility = 'visible';
+           btn5.style.visibility = 'visible';
+           btn6.style.visibility = 'visible';
+           btn7.style.visibility = 'visible';
+           btn8.style.visibility = 'visible';
           }
         }
         
