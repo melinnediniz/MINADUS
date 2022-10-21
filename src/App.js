@@ -1,4 +1,4 @@
-import LevelTable from "./components/LevelTable"
+import LevelTable from "./levelTable/index.js"
 
 function App() {
     return (

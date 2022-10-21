@@ -13,6 +13,11 @@ position: relative;
 font-size: 30px;
 left: 1410px;
 top: 0.1px;
+cursor:pointer;
+}
+
+text.row{
+    cursor:pointer;
 }
 
 h1.dificuldade{
@@ -46,9 +51,8 @@ button.fácil{position: fixed;
     height: 56.25px;
     left: 1388px;
     top: 117.00px;
-    background: #259dec;
-    box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
-    border-color:#E1E1E1}
+    background-color:transparent;
+    border: 0;}
 
 button.médio{position: fixed;
     font-weight: 400;
@@ -60,9 +64,8 @@ button.médio{position: fixed;
     height: 56.25px;
     left: 1388px;
     top: 172.10px;
-    background: #ff8f2e;
-    box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
-    border-color:#E1E1E1}
+    background-color: transparent;
+    border:0}
 
 button.difícil{position: fixed;
     font-weight: 400;
@@ -74,9 +77,8 @@ button.difícil{position: fixed;
     height: 56.25px;
     left: 1388px;
     top: 226.97px;
-    background: #d00101;
-    box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
-    border-color:#E1E1E1}
+    background-color:transparent;
+    border:0}
 
 h1.modo{
 position: fixed;
@@ -112,4 +114,10 @@ top: 390.98px;
 box-shadow: 0px 4px 13px 4px rgba(0, 0, 0, 0.11);
 background: #1DA83C;
 border-color:#E1E1E1;
+border-radius:12px;
+}
+
+
+button:hover{
+    background:rgba(128, 128, 128, 0.18);
 }
