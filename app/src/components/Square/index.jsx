@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { MdFlag as FlagIcon } from "react-icons/md";
+
+import Timer from "../Timer";
 import "./styles.css";
 
 export const Square = ({ onGameover, value, x, y }) => {

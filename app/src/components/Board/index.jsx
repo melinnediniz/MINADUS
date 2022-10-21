@@ -2,11 +2,13 @@ import { useState } from "react";
 import { GiUnlitBomb as BombIcon } from "react-icons/gi";
 import { MdFlag as FlagIcon } from "react-icons/md";
 import { Square } from "../Square";
-import { Timer } from "../Timer";
+import  Timer  from "../Timer";
 
 import "./styles.css";
 
 export const Board = () => {
+    const [timerOn, setTimerOn] = useState(false)
+
     const [flags, setFlags] = useState(0);
     const [bombs, setBombs] = useState(0);
     const [mines, setMines] = useState([
@@ -53,6 +55,14 @@ export const Board = () => {
         setGameover(true);
     }
 
+    function gameStarted(){
+        return timerOn;
+    }
+
+    function isOver(){
+        return gameover;
+    }
+
     return (
         <div className={`board bigger ${gameover ? "fall" : ""}`}>
             <header className="header">
@@ -65,8 +75,8 @@ export const Board = () => {
                     <label>{formatStatusNumber(bombs)}</label>
                 </div>
             </header>
-            <main className="main">{mines.map(renderMines)}</main>
-            <Timer />
+            <main className="main" onClick ={gameover ? () => setTimerOn(false): () => setTimerOn(true)}>{mines.map(renderMines)}</main>
+            <Timer isStarted = {gameStarted} over={isOver}/>
         </div>
     );
 };

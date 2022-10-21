@@ -5,7 +5,7 @@
     background-color: #e2e3de;
     border-radius: 8px;
     box-shadow: 1px 1px 4px 0px #00000011;
-    padding: 16px;
+    /*padding: 16px;*/
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -23,6 +23,7 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+    padding: 16px;
 }
 
 .board .header .flags,
