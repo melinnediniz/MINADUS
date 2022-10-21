@@ -1,34 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiUnlitBomb as BombIcon } from "react-icons/gi";
 import { MdFlag as FlagIcon } from "react-icons/md";
+import { GameService } from "../../services/GameService";
 import { Square } from "../Square";
-import  Timer  from "../Timer";
+import Timer from "../Timer";
 
 import "./styles.css";
 
-export const Board = () => {
-    const [timerOn, setTimerOn] = useState(false)
-
-    const [flags, setFlags] = useState(0);
-    const [bombs, setBombs] = useState(0);
-    const [mines, setMines] = useState([
-        [1, "b", 3, 4, 5, 6, 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, 6, 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, "b", 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, 6, 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, 6, 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, 6, 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, 6, 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, "b", 7, 8, 9, 10],
-        [1, "b", 3, 4, 5, 6, 7, 8, "b", 10],
-        [1, "b", 3, 4, 5, 6, 7, 8, 9, 10],
-    ]);
+export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
+    const [timerOn, setTimerOn] = useState(false);
+    const [flags, setFlag] = useState(0);
+    const [bombs] = useState(totalBombs);
+    const [mines, setMines] = useState(board);
     const [gameover, setGameover] = useState(false);
+
+    useEffect(() => {
+        setMines(board);
+    }, [board]);
 
     function renderSquare(square, index, row) {
         return (
             <Square
+                onClick={onClick}
                 onGameover={explode}
+                onAddFlag={incrementFlag}
+                onRemoveFlag={decrementFlag}
                 key={index}
                 value={square}
                 x={index}
@@ -55,16 +51,40 @@ export const Board = () => {
         setGameover(true);
     }
 
-    function gameStarted(){
+    function gameStarted() {
         return timerOn;
     }
 
-    function isOver(){
+    function isOver() {
         return gameover;
     }
 
+    function incrementFlag() {
+        setFlag(flags + 1);
+    }
+
+    function decrementFlag() {
+        if (flags <= 0) return;
+        setFlag(flags - 1);
+    }
+
+    function onClick(x, y) {
+        if (mines[y][x] !== 0) return;
+        let newMines = GameService.revealEmptySquares(
+            mines,
+            x,
+            y,
+            mines.length
+        );
+        setMines(newMines);
+    }
+
+    function handleOnContextMenu(event) {
+        event.preventDefault();
+    }
+
     return (
-        <div className={`board bigger ${gameover ? "fall" : ""}`}>
+        <div className={`board ${style} ${gameover ? "fall" : ""}`}>
             <header className="header">
                 <div className="flags">
                     <FlagIcon size={32} />
@@ -75,8 +95,16 @@ export const Board = () => {
                     <label>{formatStatusNumber(bombs)}</label>
                 </div>
             </header>
-            <main className="main" onClick ={gameover ? () => setTimerOn(false): () => setTimerOn(true)}>{mines.map(renderMines)}</main>
-            <Timer isStarted = {gameStarted} over={isOver}/>
+            <main
+                className="main"
+                onContextMenu={handleOnContextMenu}
+                onClick={
+                    gameover ? () => setTimerOn(false) : () => setTimerOn(true)
+                }
+            >
+                {mines.map(renderMines)}
+            </main>
+            <Timer isStarted={gameStarted} over={isOver} />
         </div>
     );
 };

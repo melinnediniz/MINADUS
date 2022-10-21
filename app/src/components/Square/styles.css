@@ -1,5 +1,4 @@
 .square {
-    cursor: pointer;
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -19,7 +18,12 @@
 }
 
 .square.hide {
+    cursor: pointer;
     background: #828282;
+}
+
+.square.hide:hover {
+    background: #717171;
 }
 
 .board.bigger .square {
@@ -42,6 +46,10 @@
 .board.small .square {
     width: 24px;
     height: 24px;
+}
+
+.board.fall .mines .bomb .flag {
+    display: none;
 }
 
 .board.fall .mines:nth-child(even) .bomb {
