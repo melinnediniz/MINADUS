@@ -2,7 +2,13 @@ import random from "seedrandom";
 
 const secret = process.env.SEED_SECRET;
 
-function mineField(rng, height, width, bombCount) {
+const settings = {
+    ["easy"]: { height: 8, width: 10, bombCount: 10 },
+    ["medium"]: { height: 14, width: 18, bombCount: 40 },
+    ["hard"]: { height: 21, width: 25, bombCount: 99 },
+};
+
+function mineField(rng, { height, width, bombCount }) {
     const field = new Array(height);
     for (let row = 0; row < height; row++) {
         field[row] = new Array(width);
@@ -47,10 +53,16 @@ function addMine(field, row, column) {
     }
 }
 
+function getCasualGame(difficulty = "easy") {
+    const RNG = random();
+
+    return mineField(RNG, settings[difficulty]);
+}
+
 function getDailyGame() {
     const dailyRNG = random(getDailySeed());
 
-    return mineField(dailyRNG, 10, 10);
+    return mineField(dailyRNG, settings["easy"]);
 }
 
-export { getDailyGame };
+export { getDailyGame, getCasualGame };
