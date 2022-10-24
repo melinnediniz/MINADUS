@@ -4,6 +4,7 @@ import { MdFlag as FlagIcon } from "react-icons/md";
 import { GameService } from "../../services/GameService";
 import { Square } from "../Square";
 import Timer from "../Timer";
+import { Endgame } from "../EndGame";
 
 import "./styles.css";
 
@@ -13,6 +14,12 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     const [bombs] = useState(totalBombs);
     const [mines, setMines] = useState(board);
     const [gameover, setGameover] = useState(false);
+    const [showEndgame, setShowEndgame] = useState(false)
+    const [winner, setWinner] = useState(false)
+
+    function handleOpenModal(){
+        setShowEndgame(previous => !previous)
+    }
 
     useEffect(() => {
         setMines(board);
@@ -49,6 +56,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
 
     function explode() {
         setGameover(true);
+        handleOpenModal();
     }
 
     function gameStarted() {
@@ -56,6 +64,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     }
 
     function isOver() {
+        
         return gameover;
     }
 
@@ -84,6 +93,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     }
 
     return (
+        <>
         <div className={`board ${style} ${gameover ? "fall" : ""}`}>
             <header className="header">
                 <div className="flags">
@@ -106,5 +116,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
             </main>
             <Timer isStarted={gameStarted} over={isOver} />
         </div>
+        <Endgame showEndgame={showEndgame} setShowEndgame={setShowEndgame} winner ={winner}/>
+        </>
     );
 };

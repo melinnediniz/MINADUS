@@ -1,5 +1,7 @@
 import { HiAdjustments as ConfigIcon } from 'react-icons/hi'
 import { MdEqualizer as RankingIcon } from 'react-icons/md'
+import {useState} from 'react';
+import { LevelTable } from '../LevelTable';
 
 import './styles.css'
 
@@ -9,7 +11,9 @@ const GAMEMODE_NAMES = {
 }
 
 export const Header = ({gamemode = "ranking"}) => {
+
     return (
+        <>
     <header className="header">
         <div className="menu">
             <button className="button">
@@ -22,5 +26,6 @@ export const Header = ({gamemode = "ranking"}) => {
         </div>
         <label className="gamemode">{GAMEMODE_NAMES[gamemode] || "Indefinido"}</label>
     </header>
+    </>
   )
 }
