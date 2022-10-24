@@ -7,16 +7,15 @@ export const Square = ({
     onClick,
     onAddFlag,
     onRemoveFlag,
-    onGameover,
     value,
     x,
     y,
+    flagOpen,
 }) => {
     const wasOpened = value < 0;
 
     const [visible, setVisible] = useState(wasOpened);
-    const [flag, setFlag] = useState(false);
-
+    const flagVisible = flagOpen && !visible;
     const isEmpty = value === 0 || value === -9;
     const isBomb = value === 9;
     const valueIsVisible = visible && !isBomb && !isEmpty;
@@ -37,16 +36,14 @@ export const Square = ({
 
     function handleFlag() {
         if (visible) return;
-        if (flag) onRemoveFlag();
-        else onAddFlag();
-        setFlag(!flag);
+        if (flagVisible) onRemoveFlag(x, y);
+        else onAddFlag(x, y);
     }
 
     function show() {
         onClick(x, y);
         if (visible) return;
-        setFlag(false);
-        if (isBomb) return onGameover();
+        if (isBomb) return;
         setVisible(true);
     }
 
@@ -59,7 +56,7 @@ export const Square = ({
             }`}
         >
             {valueIsVisible && visibleValue}
-            {flag && <FlagIcon className="flag" size={32} />}
+            {flagVisible && <FlagIcon className="flag" size={32} />}
         </div>
     );
 };
