@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./styles.css";
 
-const Timer = (props) => {
+const Timer = ({timerOn, gameover, gameTime, setGameTime}) => {
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
 
-    let timerOn = props.isStarted();
-    let isOver = props.over();
-    let interval;
-
+    let interval = useRef();
+    
     useEffect(() => {
-        if (timerOn && !isOver) {
+        if (timerOn && !gameover) {
             interval = setInterval(() => {
                 setSeconds(seconds + 1);
+                setGameTime(gameTime + 1);
                 if (seconds == 59) {
                     setMinutes(minutes + 1);
                     setSeconds(0);
+                    setGameTime(gameTime + 1);
+                    
                 }
             }, 1000);
         } else {
-            clearInterval(interval);
+            clearInterval(interval.current);
         }
 
         return () => clearInterval(interval);
