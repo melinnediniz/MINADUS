@@ -18,38 +18,37 @@
     display: flex;
 }
 
-
 .modal-box {
     border-radius: 10px;
     width: 800px;
-    height: 750px;
+    height: 90%;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
     background: white;
     z-index: 10;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 32px;
 }
 
-.modal-title{
+.modal-title {
     padding: 0.5em 0 0em 0; /* top right bottom left */
     font-size: 3em;
 }
 
-.modal-box #match-info, #see-ranking{
-    margin: 5em;
+.modal-box #match-info h1 {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 3em;
+    letter-spacing: 3px;
 }
 
-.modal-box #match-info h1{
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 3em;
-        letter-spacing: 3px;
-}
-
-.modal-box #match-info h2{
+.modal-box #match-info h2 {
     font-size: 30px;
     letter-spacing: 2px;
 }
 
-.modal-box #see-ranking h2{
+.modal-box #see-ranking h2 {
     text-decoration: underline;
     color: #495e4b;
     text-underline-offset: 5px;
@@ -57,7 +56,7 @@
 }
 
 .modal-box #footer {
-    margin-top: 3em;
+    /* margin-top: 3em; */
     font-size: 20px;
     color: rgba(0, 0, 0, 0.2);
 }
