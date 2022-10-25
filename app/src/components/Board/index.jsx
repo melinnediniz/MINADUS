@@ -16,6 +16,8 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     const [gameover, setGameover] = useState(false);
     const [showEndgame, setShowEndgame] = useState(false)
     const [winner, setWinner] = useState(false)
+    const [gameTime, setGameTime] = useState(0);
+
 
     function handleOpenModal(){
         setShowEndgame(previous => !previous)
@@ -59,15 +61,6 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
         handleOpenModal();
     }
 
-    function gameStarted() {
-        return timerOn;
-    }
-
-    function isOver() {
-        
-        return gameover;
-    }
-
     function incrementFlag() {
         setFlag(flags + 1);
     }
@@ -100,7 +93,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
                     <FlagIcon size={32} />
                     <label>{formatStatusNumber(flags)}</label>
                 </div>
-                <div className="bombs">
+                <div className="bombs" onClick={() => console.log(gameTime)}>
                     <BombIcon size={32} />
                     <label>{formatStatusNumber(bombs)}</label>
                 </div>
@@ -114,9 +107,16 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
             >
                 {mines.map(renderMines)}
             </main>
-            <Timer isStarted={gameStarted} over={isOver} />
+            <Timer 
+            timerOn={timerOn} 
+            gameover={gameover} 
+            gameTime={gameTime}
+            setGameTime={setGameTime}/>
         </div>
-        <Endgame showEndgame={showEndgame} setShowEndgame={setShowEndgame} winner ={winner}/>
+        <Endgame showEndgame={showEndgame} 
+        setShowEndgame={setShowEndgame} 
+        winner ={winner} 
+        gameTime ={gameTime}/>
         </>
     );
 };
