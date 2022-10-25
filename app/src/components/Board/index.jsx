@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GiUnlitBomb as BombIcon } from "react-icons/gi";
 import { MdFlag as FlagIcon } from "react-icons/md";
 import { GameService } from "../../services/GameService";
+import { Endgame } from "../EndGame";
 import { Square } from "../Square";
 import Timer from "../Timer";
 
@@ -14,6 +15,13 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     const [bombs] = useState(totalBombs);
     const [mines, setMines] = useState(board);
     const [gameover, setGameover] = useState(false);
+    const [showEndgame, setShowEndgame] = useState(false);
+    const [winner, setWinner] = useState(false);
+    const [gameTime, setGameTime] = useState(0);
+
+    function handleOpenModal() {
+        setShowEndgame((previous) => !previous);
+    }
 
     useEffect(() => {
         setMines(board);
@@ -53,14 +61,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
 
     function explode() {
         setGameover(true);
-    }
-
-    function gameStarted() {
-        return timerOn;
-    }
-
-    function isOver() {
-        return gameover;
+        handleOpenModal();
     }
 
     function addFlag(x, y) {
@@ -101,27 +102,42 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     }
 
     return (
-        <div className={`board ${style} ${gameover ? "fall" : ""}`}>
-            <header className="header">
-                <div className="flags">
-                    <FlagIcon size={32} />
-                    <label>{formatStatusNumber(flags)}</label>
-                </div>
-                <div className="bombs">
-                    <BombIcon size={32} />
-                    <label>{formatStatusNumber(bombs)}</label>
-                </div>
-            </header>
-            <main
-                className="main"
-                onContextMenu={handleOnContextMenu}
-                onClick={
-                    gameover ? () => setTimerOn(false) : () => setTimerOn(true)
-                }
-            >
-                {mines.map(renderMines)}
-            </main>
-            <Timer isStarted={gameStarted} over={isOver} />
-        </div>
+        <>
+            <div className={`board ${style} ${gameover ? "fall" : ""}`}>
+                <header className="header">
+                    <div className="flags">
+                        <FlagIcon size={32} />
+                        <label>{formatStatusNumber(flags)}</label>
+                    </div>
+                    <div className="bombs">
+                        <BombIcon size={32} />
+                        <label>{formatStatusNumber(bombs)}</label>
+                    </div>
+                </header>
+                <main
+                    className="main"
+                    onContextMenu={handleOnContextMenu}
+                    onClick={
+                        gameover
+                            ? () => setTimerOn(false)
+                            : () => setTimerOn(true)
+                    }
+                >
+                    {mines.map(renderMines)}
+                </main>
+                <Timer
+                    timerOn={timerOn}
+                    gameover={gameover}
+                    gameTime={gameTime}
+                    setGameTime={setGameTime}
+                />
+            </div>
+            <Endgame
+                showEndgame={showEndgame}
+                setShowEndgame={setShowEndgame}
+                winner={winner}
+                gameTime={gameTime}
+            />
+        </>
     );
 };
