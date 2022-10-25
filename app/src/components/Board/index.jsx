@@ -10,7 +10,8 @@ import "./styles.css";
 
 export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     const [timerOn, setTimerOn] = useState(false);
-    const [flags, setFlag] = useState(0);
+    const [flags, setFlags] = useState(0);
+    const [flagPositions, setFlagPositions] = useState([]);
     const [bombs] = useState(totalBombs);
     const [mines, setMines] = useState(board);
     const [gameover, setGameover] = useState(false);
@@ -28,16 +29,19 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     }, [board]);
 
     function renderSquare(square, index, row) {
+        const x = index;
+        const y = row;
+        const flagOpen = JSON.stringify(flagPositions).includes([x, y]);
         return (
             <Square
                 onClick={onClick}
-                onGameover={explode}
-                onAddFlag={incrementFlag}
-                onRemoveFlag={decrementFlag}
+                onAddFlag={addFlag}
+                onRemoveFlag={removeFlag}
                 key={index}
                 value={square}
-                x={index}
-                y={row}
+                x={x}
+                y={y}
+                flagOpen={flagOpen}
             />
         );
     }
@@ -61,23 +65,36 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
         handleOpenModal();
     }
 
-    function incrementFlag() {
-        setFlag(flags + 1);
+    function addFlag(x, y) {
+        setFlagPositions([...flagPositions, [x, y]]);
+        setFlags(flags + 1);
     }
 
-    function decrementFlag() {
+    function removeFlag(x, y) {
         if (flags <= 0) return;
-        setFlag(flags - 1);
+        const newFlagPositions = flagPositions.filter((flagPosition) => {
+            if (x !== flagPosition[0] || y !== flagPosition[1])
+                return flagPosition;
+        });
+        setFlagPositions(newFlagPositions);
+        setFlags(flags - 1);
     }
 
     function onClick(x, y) {
-        if (mines[y][x] !== 0) return;
+        if (mines[y][x] < 0) return;
+        if (mines[y][x] === 9) return explode();
         let newMines = GameService.revealEmptySquares(
             mines,
             x,
             y,
             mines.length
         );
+        const newFlagPositions = flagPositions.filter((flagPosition) => {
+            const value = newMines[flagPosition[1]][flagPosition[0]];
+            if (value >= 0) return flagPosition;
+        });
+        setFlagPositions(newFlagPositions);
+        setFlags(newFlagPositions.length);
         setMines(newMines);
     }
 
