@@ -2,30 +2,39 @@ import { useEffect, useState } from "react";
 import { GiUnlitBomb as BombIcon } from "react-icons/gi";
 import { MdFlag as FlagIcon } from "react-icons/md";
 import { GameService } from "../../services/GameService";
+import { UserService } from "../../services/UserService";
 import { Endgame } from "../EndGame";
 import { Square } from "../Square";
 import Timer from "../Timer";
 
 import "./styles.css";
 
-export const Board = ({ totalBombs = 2, board = [], style = "bigger" }) => {
+const userService = new UserService();
+
+export const Board = ({
+    totalBombs = 10,
+    level = "easy",
+    board = [],
+    style = "bigger",
+    gamemode = "ranking",
+}) => {
     const [timerOn, setTimerOn] = useState(false);
     const [flags, setFlags] = useState(0);
     const [flagPositions, setFlagPositions] = useState([]);
     const [bombs] = useState(totalBombs);
     const [mines, setMines] = useState(board);
-    const [countMines, setCountMines] = useState(0);
     const [gameover, setGameover] = useState(false);
     const [showEndgame, setShowEndgame] = useState(false);
     const [winner, setWinner] = useState(false);
     const [gameTime, setGameTime] = useState(0);
+    let countMines = 0;
 
     function handleOpenModal() {
         setShowEndgame((previous) => !previous);
     }
 
-    function checkGame(){
-        return !winner || gameover
+    function checkGame() {
+        return !winner || gameover;
     }
 
     useEffect(() => {
@@ -65,20 +74,25 @@ export const Board = ({ totalBombs = 2, board = [], style = "bigger" }) => {
     }
 
     function explode() {
-        setGameover(true)
+        setGameover(true);
         setTimeout(() => {
             handleOpenModal();
-          }, 2000);
+        }, 2000);
     }
 
-    function handleWin(){
-        let currentBoard = (mines.length * mines.length) - countMines
-        if(currentBoard <= bombs + 1){
+    async function handleWin() {
+        let currentBoard = mines.length * mines.length - countMines;
+        console.log(bombs);
+        if (currentBoard === bombs) {
             setWinner(true);
             setTimerOn(false);
             setTimeout(() => {
                 handleOpenModal();
-              }, 2000);
+            }, 2000);
+            const name = prompt("Digite seu nome");
+            submitUserClassification(name, gameTime, level).then(() =>
+                alert(`${name}, você foi registrado no ranking diário.`)
+            );
         }
     }
 
@@ -97,16 +111,14 @@ export const Board = ({ totalBombs = 2, board = [], style = "bigger" }) => {
         setFlags(flags - 1);
     }
 
-    function searchFreeMines(mines) {
-        let count = 0;
-        for(const element of mines){
-            for(const index of element){
-                if(index < 0){
-                    count = count + 1;
-                }
+    function searchOpenedMines(mines) {
+        let openedMines = 0;
+        for (const element of mines) {
+            for (const square of element) {
+                if (square < 0) openedMines = openedMines + 1;
             }
         }
-        setCountMines(count);
+        countMines = openedMines;
     }
 
     function onClick(x, y) {
@@ -122,7 +134,7 @@ export const Board = ({ totalBombs = 2, board = [], style = "bigger" }) => {
             const value = newMines[flagPosition[1]][flagPosition[0]];
             if (value >= 0) return flagPosition;
         });
-        searchFreeMines(newMines);
+        searchOpenedMines(newMines);
         setFlagPositions(newFlagPositions);
         setFlags(newFlagPositions.length);
         setMines(newMines);
@@ -133,6 +145,17 @@ export const Board = ({ totalBombs = 2, board = [], style = "bigger" }) => {
         event.preventDefault();
     }
 
+    async function submitUserClassification(name, time, level) {
+        if (gamemode !== "ranking") return;
+        const createdUser = await userService.create(
+            {
+                name,
+                time,
+            },
+            level
+        );
+        return createdUser;
+    }
 
     return (
         <>

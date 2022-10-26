@@ -21,13 +21,20 @@ export const Match = () => {
         async function fetch() {
             console.clear();
             console.log(`Bem vindo ao MINADUS! Jogando no modo ${level.label}`);
-            const newBoard = await gameService.getDailyGame(
-                level.level || "easy"
-            );
+            let newBoard = [];
+            if (gamemode === "ranking") {
+                newBoard = await gameService.getDailyGame(
+                    level.level || "easy"
+                );
+            } else if (gamemode === "casual") {
+                newBoard = await gameService.getRandomGame(
+                    level.level || "easy"
+                );
+            }
             setBoard(newBoard);
         }
         fetch();
-    }, [level]);
+    }, [level, gamemode]);
 
     function toggleRanking() {
         setRankingVisible(!rankingVisible);
@@ -39,10 +46,12 @@ export const Match = () => {
 
     function changeGamemode(mode) {
         setGamemode(mode);
+        setBoard(undefined);
     }
 
     function changeLevel(level) {
         setLevel(level);
+        setBoard(undefined);
     }
 
     return (
@@ -56,6 +65,7 @@ export const Match = () => {
                 <Board
                     totalBombs={level.bombs}
                     board={board}
+                    gamemode={gamemode}
                     style={level.style}
                 />
             </Loading>
