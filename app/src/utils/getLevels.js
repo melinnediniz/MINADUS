@@ -2,7 +2,7 @@ export function getLevels() {
     return [
         {
             level: "easy",
-            bombs: 2,
+            bombs: 10,
             style: "bigger",
             label: "Fácil",
         },
