@@ -11,6 +11,8 @@ export const Square = ({
     x,
     y,
     flagOpen,
+    minesFree,
+    setMinesFree
 }) => {
     const wasOpened = value < 0;
 

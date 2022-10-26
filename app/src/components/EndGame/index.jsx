@@ -13,6 +13,7 @@ export const Endgame = ({ showEndgame, setShowEndgame, winner, gameTime }) => {
     const [seconds, setSeconds] = useState("00");
 
     let interval = useRef(null);
+    let modalRef = useRef(null);
 
     const startCountDown = () => {
         const month = [
@@ -77,12 +78,23 @@ export const Endgame = ({ showEndgame, setShowEndgame, winner, gameTime }) => {
         return `${minutesText}:${secondsText}`;
     }
 
+    useEffect(() =>{
+        let handleClick = (e) =>{
+            if(!modalRef.current.contains(e.target)){
+                setShowEndgame(false)
+                console.log(modalRef.current)
+            }
+        }
+
+        document.addEventListener("mousedown", handleClick)
+    })
+
     return (
         <>
             {showEndgame ? (
                 <div className="modal">
                     <div className="background">
-                        <div className="modal-box">
+                        <div className="modal-box" ref={modalRef}>
                             <h1 className="modal-title">
                                 {IS_WINNER_MESSAGE[winner]}
                             </h1>

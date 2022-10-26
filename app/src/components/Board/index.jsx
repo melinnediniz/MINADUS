@@ -8,12 +8,13 @@ import Timer from "../Timer";
 
 import "./styles.css";
 
-export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
+export const Board = ({ totalBombs = 2, board = [], style = "bigger" }) => {
     const [timerOn, setTimerOn] = useState(false);
     const [flags, setFlags] = useState(0);
     const [flagPositions, setFlagPositions] = useState([]);
     const [bombs] = useState(totalBombs);
     const [mines, setMines] = useState(board);
+    const [countMines, setCountMines] = useState(0);
     const [gameover, setGameover] = useState(false);
     const [showEndgame, setShowEndgame] = useState(false);
     const [winner, setWinner] = useState(false);
@@ -21,6 +22,10 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
 
     function handleOpenModal() {
         setShowEndgame((previous) => !previous);
+    }
+
+    function checkGame(){
+        return !winner || gameover
     }
 
     useEffect(() => {
@@ -60,8 +65,21 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     }
 
     function explode() {
-        setGameover(true);
-        handleOpenModal();
+        setGameover(true)
+        setTimeout(() => {
+            handleOpenModal();
+          }, 2000);
+    }
+
+    function handleWin(){
+        let currentBoard = (mines.length * mines.length) - countMines
+        if(currentBoard <= bombs + 1){
+            setWinner(true);
+            setTimerOn(false);
+            setTimeout(() => {
+                handleOpenModal();
+              }, 2000);
+        }
     }
 
     function addFlag(x, y) {
@@ -79,6 +97,18 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
         setFlags(flags - 1);
     }
 
+    function searchFreeMines(mines) {
+        let count = 0;
+        for(const element of mines){
+            for(const index of element){
+                if(index < 0){
+                    count = count + 1;
+                }
+            }
+        }
+        setCountMines(count);
+    }
+
     function onClick(x, y) {
         if (mines[y][x] < 0) return;
         if (mines[y][x] === 9) return explode();
@@ -92,14 +122,17 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
             const value = newMines[flagPosition[1]][flagPosition[0]];
             if (value >= 0) return flagPosition;
         });
+        searchFreeMines(newMines);
         setFlagPositions(newFlagPositions);
         setFlags(newFlagPositions.length);
         setMines(newMines);
+        handleWin();
     }
 
     function handleOnContextMenu(event) {
         event.preventDefault();
     }
+
 
     return (
         <>
@@ -118,7 +151,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
                     className="main"
                     onContextMenu={handleOnContextMenu}
                     onClick={
-                        gameover
+                        gameover || winner
                             ? () => setTimerOn(false)
                             : () => setTimerOn(true)
                     }
@@ -127,7 +160,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
                 </main>
                 <Timer
                     timerOn={timerOn}
-                    gameover={gameover}
+                    checkGame={checkGame()}
                     gameTime={gameTime}
                     setGameTime={setGameTime}
                 />

@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import "./styles.css";
 
-const Timer = ({timerOn, gameover, gameTime, setGameTime}) => {
+const Timer = ({timerOn, checkGame, gameTime, setGameTime, winner}) => {
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
 
     let interval = useRef();
     
     useEffect(() => {
-        if (timerOn && !gameover) {
+        if (timerOn && (checkGame)) {
             interval = setInterval(() => {
                 setSeconds(seconds + 1);
                 setGameTime(gameTime + 1);
