@@ -16,6 +16,17 @@ export class GameService {
         ];
     }
 
+    async getRandomGame(level = "easy") {
+        // TODO Return random board generated on API
+        return [
+            [1, 1, 1, 0, 0],
+            [1, 9, 1, 0, 0],
+            [1, 1, 1, 0, 0],
+            [0, 0, 0, 1, 1],
+            [0, 0, 0, 1, 9],
+        ];
+    }
+
     static revealEmptySquares(board = [], x, y, order) {
         let boardCopy = board.map((row) => [...row]);
         if (x < 0 || y < 0 || x >= order || y >= order) return boardCopy;

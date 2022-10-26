@@ -2,13 +2,22 @@ import { useEffect, useState } from "react";
 import { GiUnlitBomb as BombIcon } from "react-icons/gi";
 import { MdFlag as FlagIcon } from "react-icons/md";
 import { GameService } from "../../services/GameService";
+import { UserService } from "../../services/UserService";
 import { Endgame } from "../EndGame";
 import { Square } from "../Square";
 import Timer from "../Timer";
 
 import "./styles.css";
 
-export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
+const userService = new UserService();
+
+export const Board = ({
+    totalBombs = 10,
+    level = "easy",
+    board = [],
+    style = "bigger",
+    gamemode = "ranking",
+}) => {
     const [timerOn, setTimerOn] = useState(false);
     const [flags, setFlags] = useState(0);
     const [flagPositions, setFlagPositions] = useState([]);
@@ -18,9 +27,14 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
     const [showEndgame, setShowEndgame] = useState(false);
     const [winner, setWinner] = useState(false);
     const [gameTime, setGameTime] = useState(0);
+    let countMines = 0;
 
     function handleOpenModal() {
         setShowEndgame((previous) => !previous);
+    }
+
+    function checkGame() {
+        return !winner || gameover;
     }
 
     useEffect(() => {
@@ -61,7 +75,25 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
 
     function explode() {
         setGameover(true);
-        handleOpenModal();
+        setTimeout(() => {
+            handleOpenModal();
+        }, 2000);
+    }
+
+    async function handleWin() {
+        let currentBoard = mines.length * mines.length - countMines;
+        console.log(bombs);
+        if (currentBoard === bombs) {
+            setWinner(true);
+            setTimerOn(false);
+            setTimeout(() => {
+                handleOpenModal();
+            }, 2000);
+            const name = prompt("Digite seu nome");
+            submitUserClassification(name, gameTime, level).then(() =>
+                alert(`${name}, você foi registrado no ranking diário.`)
+            );
+        }
     }
 
     function addFlag(x, y) {
@@ -79,6 +111,16 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
         setFlags(flags - 1);
     }
 
+    function searchOpenedMines(mines) {
+        let openedMines = 0;
+        for (const element of mines) {
+            for (const square of element) {
+                if (square < 0) openedMines = openedMines + 1;
+            }
+        }
+        countMines = openedMines;
+    }
+
     function onClick(x, y) {
         if (mines[y][x] < 0) return;
         if (mines[y][x] === 9) return explode();
@@ -92,13 +134,27 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
             const value = newMines[flagPosition[1]][flagPosition[0]];
             if (value >= 0) return flagPosition;
         });
+        searchOpenedMines(newMines);
         setFlagPositions(newFlagPositions);
         setFlags(newFlagPositions.length);
         setMines(newMines);
+        handleWin();
     }
 
     function handleOnContextMenu(event) {
         event.preventDefault();
+    }
+
+    async function submitUserClassification(name, time, level) {
+        if (gamemode !== "ranking") return;
+        const createdUser = await userService.create(
+            {
+                name,
+                time,
+            },
+            level
+        );
+        return createdUser;
     }
 
     return (
@@ -118,7 +174,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
                     className="main"
                     onContextMenu={handleOnContextMenu}
                     onClick={
-                        gameover
+                        gameover || winner
                             ? () => setTimerOn(false)
                             : () => setTimerOn(true)
                     }
@@ -127,7 +183,7 @@ export const Board = ({ totalBombs = 10, board = [], style = "bigger" }) => {
                 </main>
                 <Timer
                     timerOn={timerOn}
-                    gameover={gameover}
+                    checkGame={checkGame()}
                     gameTime={gameTime}
                     setGameTime={setGameTime}
                 />

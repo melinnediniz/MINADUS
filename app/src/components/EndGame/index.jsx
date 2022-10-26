@@ -7,12 +7,19 @@ const IS_WINNER_MESSAGE = {
     false: "DERROTA",
 };
 
-export const Endgame = ({ showEndgame, setShowEndgame, winner, gameTime }) => {
+export const Endgame = ({
+    showEndgame,
+    setShowEndgame,
+    winner,
+    gameTime,
+    classification = 0,
+}) => {
     const [hours, setHours] = useState("00");
     const [minutes, setMinutes] = useState("00");
     const [seconds, setSeconds] = useState("00");
 
     let interval = useRef(null);
+    let modalRef = useRef(null);
 
     const startCountDown = () => {
         const month = [
@@ -77,12 +84,22 @@ export const Endgame = ({ showEndgame, setShowEndgame, winner, gameTime }) => {
         return `${minutesText}:${secondsText}`;
     }
 
+    useEffect(() => {
+        let handleClick = (e) => {
+            if (!modalRef?.current?.contains?.(e.target)) {
+                setShowEndgame(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClick);
+    });
+
     return (
         <>
             {showEndgame ? (
                 <div className="modal">
                     <div className="background">
-                        <div className="modal-box">
+                        <div className="modal-box" ref={modalRef}>
                             <h1 className="modal-title">
                                 {IS_WINNER_MESSAGE[winner]}
                             </h1>
@@ -95,14 +112,12 @@ export const Endgame = ({ showEndgame, setShowEndgame, winner, gameTime }) => {
                                 </h1>
                                 <h2>TEMPO DE JOGO</h2>
                             </div>
-                            <div id="match-info">
-                                <h1>000</h1>
-                                <h2>POSIÇÃO NO RANKING</h2>
-                            </div>
-                            <div id="see-ranking">
-                                <RankingIcon size={85} color={"#222222"} />
-                                <h2>VER RANKING COMPLETO</h2>
-                            </div>
+                            {winner && (
+                                <div id="see-ranking">
+                                    <RankingIcon size={85} color={"#222222"} />
+                                    <h2>VER RANKING COMPLETO</h2>
+                                </div>
+                            )}
                             <div id="footer">
                                 <h2>
                                     PRÓXIMO JOGO EM{" "}

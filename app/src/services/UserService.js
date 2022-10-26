@@ -1,7 +1,7 @@
 const PATH = "/users";
 
 export class UserService {
-    async create(user) {
+    async create(user, level = "easy") {
         return {};
     }
 
