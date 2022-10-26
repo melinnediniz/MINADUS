@@ -18,24 +18,28 @@ export const Match = () => {
     const [rankingVisible, setRankingVisible] = useState(false);
 
     useEffect(() => {
-        async function fetch() {
-            console.clear();
-            console.log(`Bem vindo ao MINADUS! Jogando no modo ${level.label}`);
-            let newBoard = [];
-            if (gamemode === "ranking") {
-                newBoard = await gameService.getDailyGame(
-                    level.level || "easy"
-                );
-            } else if (gamemode === "casual") {
-                newBoard = await gameService.getRandomGame(
-                    level.level || "easy"
-                );
-            }
-            setBoard(newBoard);
-        }
         fetch();
-    }, [level, gamemode]);
+    }, [level]);
 
+    useEffect(() => {
+        fetch();
+    }, [gamemode]);
+    
+    async function fetch() {
+        console.clear();
+        console.log(`Bem vindo ao MINADUS! Jogando no modo ${level.label}`);
+        let newBoard = [];
+        if (gamemode === "ranking") {
+            newBoard = await gameService.getDailyGame(
+                level.level || "easy"
+            );
+        } else if (gamemode === "casual") {
+            newBoard = await gameService.getRandomGame(
+                level.level || "easy"
+            );
+        }
+        setBoard(newBoard);
+    }
     function toggleRanking() {
         setRankingVisible(!rankingVisible);
     }
