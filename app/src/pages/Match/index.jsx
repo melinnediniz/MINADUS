@@ -80,7 +80,7 @@ export const Match = () => {
             <Ranking
                 onClose={toggleRanking}
                 visible={rankingVisible}
-                level={level}
+                level={level.level}
             />
         </div>
     );
