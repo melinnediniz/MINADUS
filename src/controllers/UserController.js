@@ -7,7 +7,7 @@ async function create(req, resp) {
     const { name, time } = req.body;
     const { level } = req.query;
     try {
-        let game = await Game.findOne({ level, seed: getDailySeed(level) });
+        let game = await Game.findOne({ level, seed: getDailySeed() });
         if (game === null)
             game = await Game.create({
                 seed: getDailySeed(),
