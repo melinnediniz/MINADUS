@@ -16,7 +16,7 @@ export function getLevels() {
             level: "hard",
             bombs: 99,
             style: "small",
-            label: "Difício",
+            label: "Difícil",
         },
     ];
 }
