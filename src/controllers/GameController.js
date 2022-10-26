@@ -26,6 +26,7 @@ function mineField(rng, { height, width, bombCount }) {
         const row = Math.floor(rng() * height);
         const column = Math.floor(rng() * width);
 
+        console.log(`[${row}][${column}]`)
         addMine(field, row, column);
     }
 
@@ -44,12 +45,11 @@ function addMine(field, row, column) {
         for (let i = -1; i <= 1; i++)
             for (let j = -1; j <= 1; j++)
                 if (
-                    Number.isInteger(
-                        field[row + i][column + j] &&
-                            field[row + i][column + j] < 8
-                    )
+                    field[row + i] &&
+                    Number.isInteger(field[row + i][column + j]) &&
+                    field[row + i][column + j] < 8
                 )
-                    ++field[row + i][column + j];
+                    ++(field[row + i][column + j]);
     }
 }
 
