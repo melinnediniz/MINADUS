@@ -1,25 +1,26 @@
 import { Ranking } from "../entities/Ranking.js";
+import { Game } from "../entities/Game.js";
+import { User } from "../entities/User.js";
+import { getDailySeed } from "./GameController.js";
 
-async function fetchAll(req, resp) {
-  try {
-    const rankings = await Ranking.find({});
-    return resp.json(rankings);
-  } catch (error) {
-    return resp.json({ message: "Error on fetch rankings", status: 400 });
-  }
+async function fetchUsers(req, resp) {
+    const { level } = req.query;
+    try {
+        const game = await Game.findOne({ level, seed: getDailySeed() });
+        if (game === null) return resp.json([]);
+        const ranking = await Ranking.findOne({ game: game.id });
+        if (ranking === null) return resp.json([]);
+        const users = await User.find({
+            ranking: ranking.id,
+        }).sort({ time: -1 });
+        console.log(users);
+        return resp.json(users);
+    } catch (error) {
+        return resp.json({
+            message: "Error on fetch users of ranking",
+            status: 400,
+        });
+    }
 }
 
-async function create(req, resp) {
-  const { game } = req.body;
-  try {
-    const createdRanking = await Ranking.create({
-      createdAt: Date.now(),
-      game,
-    });
-    return resp.json(createdRanking);
-  } catch (error) {
-    return resp.json({ message: "Error on create ranking", status: 400 });
-  }
-}
-
-export { fetchAll, create };
+export { fetchUsers };

@@ -1,3 +1,4 @@
+import { api } from "../api.js";
 const PATH = "/games";
 
 export class GameService {
@@ -6,25 +7,25 @@ export class GameService {
     // - medium: 40 bombs
     // - hard: 99 bombs
     async getDailyGame(level = "easy") {
-        // TODO Return daily board generated on API
-        return [
-            [1, 1, 1, 0, 0],
-            [1, 9, 1, 0, 0],
-            [1, 1, 1, 0, 0],
-            [0, 0, 0, 1, 1],
-            [0, 0, 0, 1, 9],
-        ];
+        try {
+            const { data: board } = await api.get(
+                `${PATH}/daily?level=${level}`
+            );
+            return board;
+        } catch (error) {
+            return [];
+        }
     }
 
     async getRandomGame(level = "easy") {
-        // TODO Return random board generated on API
-        return [
-            [1, 1, 1, 0, 0],
-            [1, 9, 1, 0, 0],
-            [1, 1, 1, 0, 0],
-            [0, 0, 0, 1, 1],
-            [0, 0, 0, 1, 9],
-        ];
+        try {
+            const { data: board } = await api.get(
+                `${PATH}/casual?level=${level}`
+            );
+            return board;
+        } catch (error) {
+            return [];
+        }
     }
 
     static revealEmptySquares(board = [], x, y, order) {

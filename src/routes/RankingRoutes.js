@@ -1,8 +1,7 @@
 import { Router } from "express";
-import { create, fetchAll } from "../controllers/RankingController.js";
+import { fetchUsers } from "../controllers/RankingController.js";
 
 const RankingRoutes = Router();
 const path = "/rankings";
-RankingRoutes.get(path, fetchAll);
-RankingRoutes.post(path, create);
+RankingRoutes.get(`${path}/users`, fetchUsers);
 export { RankingRoutes };

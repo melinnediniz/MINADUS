@@ -77,7 +77,11 @@ export const Match = () => {
                 getLevel={() => level}
                 visible={settingVisible}
             />
-            <Ranking onClose={toggleRanking} visible={rankingVisible} />
+            <Ranking
+                onClose={toggleRanking}
+                visible={rankingVisible}
+                level={level}
+            />
         </div>
     );
 };
