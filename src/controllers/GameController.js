@@ -1,11 +1,11 @@
 import random from "seedrandom";
 
-const secret = process.env.SEED_SECRET;
+const secret = process.env.SEED_SECRET || "minadus";
 
 const settings = {
-    ["easy"]: { height: 8, width: 10, bombCount: 10 },
-    ["medium"]: { height: 14, width: 18, bombCount: 40 },
-    ["hard"]: { height: 21, width: 25, bombCount: 99 },
+    easy: { height: 10, width: 10, bombCount: 10 },
+    medium: { height: 18, width: 18, bombCount: 40 },
+    hard: { height: 25, width: 25, bombCount: 99 },
 };
 
 function mineField(rng, { height, width, bombCount }) {
@@ -34,7 +34,7 @@ function mineField(rng, { height, width, bombCount }) {
 
 function getDailySeed() {
     const date = new Date().toISOString().substring(0, 10);
-    return date + secret;
+    return `${date}-${secret}`;
 }
 
 function addMine(field, row, column) {
@@ -53,16 +53,31 @@ function addMine(field, row, column) {
     }
 }
 
-function getCasualGame(difficulty = "easy") {
+function getCasualGame(req, resp) {
+    const { level } = req.query;
     const RNG = random();
-
-    return mineField(RNG, settings[difficulty]);
+    try {
+        return resp.json(mineField(RNG, settings[level || "easy"]));
+    } catch (error) {
+        return resp.json({
+            message: "Error on generate casual board",
+            status: 400,
+        });
+    }
 }
 
-function getDailyGame() {
+function getDailyGame(req, resp) {
+    const { level } = req.query;
     const dailyRNG = random(getDailySeed());
-
-    return mineField(dailyRNG, settings["easy"]);
+    try {
+        return resp.json(mineField(dailyRNG, settings[level || "easy"]));
+    } catch (error) {
+        console.log(error);
+        return resp.json({
+            message: "Error on generate daily board",
+            status: 400,
+        });
+    }
 }
 
-export { getDailyGame, getCasualGame };
+export { getDailyGame, getCasualGame, getDailySeed };

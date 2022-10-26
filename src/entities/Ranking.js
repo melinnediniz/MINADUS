@@ -1,11 +1,11 @@
-import { Schema, model, ObjectId } from 'mongoose'
+import { Schema, model, ObjectId } from "mongoose";
 
 const schema = new Schema({
     createdAt: { type: Date, default: Date.now },
     game: {
         type: ObjectId,
-        ref: 'Game'
-    }
-})
+        ref: "Game",
+    },
+});
 
-export const Ranking = model('ranking', schema)
+export const Ranking = model("ranking", schema);

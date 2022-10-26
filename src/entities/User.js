@@ -1,14 +1,13 @@
-import { Schema, model, ObjectId } from 'mongoose'
+import { Schema, model, ObjectId } from "mongoose";
 
 const schema = new Schema({
     name: { type: String, required: true },
-    birthday: { type: Date, required: true },
-    time: { type: Date, required: true },
+    time: { type: Number, required: true },
     createdAt: { type: Date, default: Date.now },
     ranking: {
         type: ObjectId,
-        ref: 'Ranking'
-    }
-})
+        ref: "Ranking",
+    },
+});
 
-export const User = model('user', schema)
+export const User = model("user", schema);

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { MdClose as CloseIcon } from "react-icons/md";
+import { RankingService } from "../../services/RankingService";
 import { UserService } from "../../services/UserService";
 import { Loading } from "../Loading";
 
 import "./styles.css";
 
-const userService = new UserService();
+const rankingService = new RankingService();
 
-export const Ranking = ({ onClose, visible = false, rankingId }) => {
+export const Ranking = ({ onClose, visible = false, level = "easy" }) => {
     const [users, setUsers] = useState();
 
     useEffect(() => {
         async function fetch() {
-            const newUsers = await userService.fetchUsersByRankingId(rankingId);
+            const newUsers = await rankingService.fetchUsers(level);
             const sortedUsers = newUsers.sort((a, b) =>
                 a.time > b.time ? -1 : 1
             );
