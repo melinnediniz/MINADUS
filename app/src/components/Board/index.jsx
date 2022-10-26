@@ -86,13 +86,13 @@ export const Board = ({
         if (currentBoard === bombs) {
             setWinner(true);
             setTimerOn(false);
-            setTimeout(() => {
-                handleOpenModal();
-            }, 2000);
-            const name = prompt("Digite seu nome");
-            submitUserClassification(name, gameTime, level).then(() =>
-                alert(`${name}, você foi registrado no ranking diário.`)
-            );
+            handleOpenModal();
+            if (gamemode === "ranking") {
+                const name = prompt("Digite seu nome");
+                submitUserClassification(name, gameTime, level).then(() =>
+                    alert(`${name}, você foi registrado no ranking diário.`)
+                );
+            }
         }
     }
 
