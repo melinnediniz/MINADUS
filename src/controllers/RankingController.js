@@ -8,12 +8,13 @@ async function fetchUsers(req, resp) {
     try {
         const game = await Game.findOne({ level, seed: getDailySeed() });
         if (game === null) return resp.json([]);
+
         const ranking = await Ranking.findOne({ game: game.id });
         if (ranking === null) return resp.json([]);
+
         const users = await User.find({
             ranking: ranking.id,
         }).sort({ time: -1 });
-        console.log(users);
         return resp.json(users);
     } catch (error) {
         return resp.json({

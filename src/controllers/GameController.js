@@ -26,7 +26,6 @@ function mineField(rng, { height, width, bombCount }) {
         const row = Math.floor(rng() * height);
         const column = Math.floor(rng() * width);
 
-        console.log(`[${row}][${column}]`)
         addMine(field, row, column);
     }
 
